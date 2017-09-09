@@ -13,7 +13,7 @@ class UsuarioDao implements IUsuario{
 
     public function UsuarioById($id){
        //Devuelve el usuario con $ID
-       echo "Seleccionando usuarios por ID <br>";
+       echo "Seleccionando usuarios por ID = $id <br>";
        $data_source= new Datasource();
        $result= $data_source->ejecutarConsulta("SELECT * FROM Usuarios where ID=". $id);
        return $result;
