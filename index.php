@@ -2,13 +2,7 @@
 require_once("./autoload.php");
 
 
+$estudiante= new Estudiante("Pepe",23,"X23456H");
+$daoUsuario= new UsuarioDao();
 
-$dvd = new DVD("star Wars",1976,120);
-
-print_r($dvd);
-echo "<br>";
-
-
-
-$libro = new Libro("El Señor de os anillos", 2000, "Salvat");
-print_r( $libro);
+$daoUsuario->insertUsuario($estudiante);
