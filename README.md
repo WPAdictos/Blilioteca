@@ -5,3 +5,6 @@ Primer SPRINT a desarrollar: Identificar las entidades de los usuarios y desarro
 
 
 Segundo  SPRINT a desarrollar: Sobre el código del PRIMER SPRINT hay que añadir una nueva entidad: Material esta entidad engloba todas entidades que se puedan prestar en una biblioteca, de momento necesitaremos dos: Libro y DVD. Necesitamos guardar datos como el titulo, año (se refiere a año de publicacion, creacion o emision), duración,( en minutos) para materiales audiovisuales y la editorial en caso de publicaciones y libros
+
+
+SPRINT 3: añadir patron DAO a usuarios
