@@ -6,8 +6,9 @@ Clase de la fuente de datos: puede ser una BBD MySQl, un fichero  XML, Un array,
 
 class Datasource{
 
-    private $conexion;
-    private $cadenaConexion;
+    //private $conexion;
+    //private $cadenaConexion;
+    private static $listaUsuarios=array();
 
     function __construct(){
         //Al instanciarlo creamos una conexion

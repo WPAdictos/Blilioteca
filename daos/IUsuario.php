@@ -7,5 +7,6 @@ interface IUsuario{
     public function insertUsuario($usuario);
     public function deleteUsuario($id);
     public function updateUsuario($usuario);
+    public function findUsuarios($condiciones);
 
 }

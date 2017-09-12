@@ -44,4 +44,20 @@ class UsuarioDao implements IUsuario{
         return $result;
     }
 
+    public function findUsuarios($condiciones){
+        //Consulta usuarios por varias condiciones
+        echo "Consultando por varias condiciones <br>";
+        $data_source= new Datasource();
+        $condicion="";
+        /*
+          Aqui se construye la condicion, por ejemplo,las condiciones vienen por $condiciones y en
+          $condicion constrimos la SELECT para enviar a la BBDD
+          $condicion= "WHERE tipousuario='Estudiante' AND nombre like 'Pepe'"
+
+        */
+
+        $result= $data_source->ejecutarConsulta("SELECT * FROM Usuarios  ". $condicion);
+        return $result;
+    }
+
 }
