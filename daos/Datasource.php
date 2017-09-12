@@ -6,16 +6,16 @@ Clase de la fuente de datos: puede ser una BBD MySQl, un fichero  XML, Un array,
 
 class Datasource{
 
-    //private $conexion;
-    //private $cadenaConexion;
-    private static $listaUsuarios=array();
+      private $conexion;
+      private $cadenaConexion;
+   
 
     function __construct(){
         //Al instanciarlo creamos una conexion
         //podriamos usar un parametro en el constructor para indicar el tipo de base de datos y asi crear conexiones a la carta
 
-        //$this->cadenaConexion="mysql:host=localhost;dbaname=biblioteca";
-        //$this->conexion= new PDO($this->cadenaConexion,"usuario","contraseña");
+        $this->cadenaConexion="mysql:host=localhost;dbaname=biblioteca";
+        $this->conexion= new PDO($this->cadenaConexion,"usuario","contraseña");
     }
 
     //Funciones con las cuales se consultara o manipulara la BBDD
