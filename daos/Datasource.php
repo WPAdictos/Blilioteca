@@ -26,7 +26,6 @@ class Datasource
             self::$database = new stdClass();  // La clase stdclass de php, info adicional: http://mjcarrascosa.com/la-clase-stdclass-de-php/
             self::$database->usuarios= array();     //Tabla usuarios
             self::$database->materiales= array();   //Tabla materiales
-            self::$database->prestamos= array();   //Tabla prestamos
             // .... añadir tantas tablas como necesarias
         }
     }
