@@ -1,5 +1,6 @@
 <?php
 
+
 /*
 Clase de la fuente de datos: simularemos el acceso a los datos a un array y los alamacenaremos en el Datasource
 aprovechando las caracteristicas de las variables estaticas, pero los arrays los meteremos como propiedades de un objeto stdclass
