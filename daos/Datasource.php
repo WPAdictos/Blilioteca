@@ -47,11 +47,17 @@ class Datasource
         return false;
     }
 
+<<<<<<< HEAD
     //Inserta en el array y devuelve el numero de elementos del array
     public function insertUser(Usuario $usuario)
     {
         return array_push(self::$database->usuarios, $usuario);
     }
+=======
+      private $conexion;
+      private $cadenaConexion;
+   
+>>>>>>> 864390846ae7c1e587c34ef5d8509e3de6265d2a
 
    
     //Borrado de un usuario por un ID, devuelve true/false si se ha borrado
