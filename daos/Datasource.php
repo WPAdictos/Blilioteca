@@ -6,6 +6,8 @@ Clase de la fuente de datos: simularemos el acceso a los datos a un array y los 
 aprovechando las caracteristicas de las variables estaticas, pero los arrays los meteremos como propiedades de un objeto stdclass
 de PHP para de esa manera tener mas ordenado el codigo y mas legible
 
+Diapositiva para entender la estructura: https://docs.google.com/presentation/d/16oqqSbnMsX2P7XG1Ls87vI79st4SfHWfftD6EwsUxMU/edit?usp=sharing
+
 La clase stdclass de php, info adicional: http://mjcarrascosa.com/la-clase-stdclass-de-php/
 */
 
