@@ -8,3 +8,5 @@ Segundo  SPRINT a desarrollar: Sobre el código del PRIMER SPRINT hay que añadi
 
 
 SPRINT 3: añadir patron DAO a usuarios
+
+SPRINT 3+ : Modificar el patron DAO para similuar la base de datos en arrays o listas

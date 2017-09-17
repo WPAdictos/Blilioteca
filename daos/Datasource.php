@@ -1,35 +1,141 @@
 <?php
 
 /*
-Clase de la fuente de datos: puede ser una BBD MySQl, un fichero  XML, Un array, etc etc
+Clase de la fuente de datos: simularemos el acceso a los datos a un array y los alamacenaremos en el Datasource
+aprovechando las caracteristicas de las variables estaticas, pero los arrays los meteremos como propiedades de un objeto stdclass
+de PHP para de esa manera tener mas ordenado el codigo y mas legible
+
+La clase stdclass de php, info adicional: http://mjcarrascosa.com/la-clase-stdclass-de-php/
 */
 
-class Datasource{
+/*
+Realmente esta clase seria un patron llamado Fachada o Facade o lo que nosotros antiguamente llamabamos Wrapper, una clase
+que engloba una logica mas compleja y que se puede acceder desde el exterior, simplificando la logica de las clases DAO
+*/
+class Datasource
+{
 
-    //private $conexion;
-    //private $cadenaConexion;
-    private static $listaUsuarios=array();
+    //Representa a toda la base de datos del sistema, todos los arrays necesarios seran propiedades de este objeto stdclass
+    private static $database;
 
-    function __construct(){
-        //Al instanciarlo creamos una conexion
-        //podriamos usar un parametro en el constructor para indicar el tipo de base de datos y asi crear conexiones a la carta
+    function __construct()
+    {
 
-        //$this->cadenaConexion="mysql:host=localhost;dbaname=biblioteca";
-        //$this->conexion= new PDO($this->cadenaConexion,"usuario","contraseña");
+        if  (empty(self::$database)){
+            self::$database = new stdClass();
+            self::$database->usuarios= array();     //Tabla usuarios
+            self::$database->materiales= array();   //Tabla materiales
+            // .... añadir tantas tablas como necesarias
+        }
     }
 
-    //Funciones con las cuales se consultara o manipulara la BBDD
-
-    public function ejecutarConsulta($sql=""){
-        //Sirve para trernos los registros de una BBD
-        // devuelve de 0 a N registros
-
+    //DEvuelve todos los usuarios
+    public function getUsers()
+    {
+        return self::$database->usuarios;
+    }
+    
+    //Devuelve un usuario dado por ID o falso sino esta
+    public function getUserById($id)
+    {
+        foreach (self::$database->usuarios as $user) {
+            if ($user->id == $id) {
+                return $user;
+            }
+        }
+        return false;
     }
 
-    public function ejecutarActualizacion($sql="", $values){
-        //Sirve para hacer actualizaciones en la DB
-        //Operaciones de insercion, borrado o actualizacion
-        //Devolveria si el resgistro se ha actualizado de forma correcta o no
+    //Inserta en el array y devuelve el numero de elementos del array
+    public function insertUser($usuario)
+    {
+        return array_push(self::$database->usuarios, $usuario);
     }
 
+   
+    //Borrado de un usuario por un ID, devuelve true/false si se ha borrado
+    public function deleteUser($id)
+    {
+        $borrado=false;
+        for ($i=0; $i < count(self::$database->usuarios); $i++) {
+            if (self::$database->usuarios[$i]->id == $id) {
+                array_splice(self::$database->usuarios, $i, 1);
+                $borrado=true;
+                break;
+            }
+        }
+        return $borrado;
+    }
+
+    //Actualizado de usuarios, devuelve true si se ha hecho de forma correcta y false sino se ha encontrado
+    public function updateUser($user)
+    {
+        $actualizado=false;
+        for ($i=0; $i < count(self::$database->usuarios); $i++) {
+            if (self::$database->usuarios[$i]->id == $user->id) {
+                self::$database->usuarios[$i]=$user;
+                $actualizado=true;
+                break;
+            }
+        }
+        return $actualizado;
+    }
+
+    //------------------------------------------------------------------------------------------------------------
+    //Materiales Copy y paste de la de usuarios y cambiar nombres de variables y nombre acceso al array
+    
+    //------------------------------------------------------------------------------------------------------------
+
+    //Devuelve todos los materiales
+    public function getMateriales()
+    {
+        return self::$database->materiales;
+    }
+
+        //Devuelve un usuario dado por ID o falso sino esta
+    public function getMaterialById($id)
+    {
+        foreach (self::$database->materiales as $mat) {
+            if ($mat->id == $id) {
+                return $mat;
+            }
+        }
+        return false;
+    }
+
+
+    //Inserta en el array y devuelve el numero de elementos del array
+    public function insertMaterial($mat)
+    {
+        return array_push(self::$database->materiales, $mat);
+    }
+    
+    
+    //Borrado de un material por un ID, devuelve true/false si se ha borrado
+    public function deleteMaterial($id)
+    {
+        $borrado=false;
+        for ($i=0; $i < count(self::$database->materiales); $i++) {
+            if (self::$database->materiales[$i]->id == $id) {
+                array_splice(self::$database->materiales, $i, 1);
+                $borrado=true;
+                break;
+            }
+        }
+        return $borrado;
+    }
+
+    //Actualizado de materiales, devuelve true si se ha hecho de forma correcta y false sino se ha encontrado
+    public function updateMaterial($mat)
+    {
+        $actualizado=false;
+        for ($i=0; $i < count(self::$database->materiales); $i++) {
+            if (self::$database->materiales[$i]->id == $mat->id) {
+                self::$database->materiales[$i]=$mat;
+                $actualizado=true;
+                break;
+            }
+        }
+        return $actualizado;
+    }
 }
