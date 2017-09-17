@@ -3,9 +3,9 @@
 interface IMaterial{
 
     public function AllMateriales();
-    public function MaterialById($id);
-    public function insertMaterial($material);
-    public function deleteMaterial($id);
-    public function updateMaterial($material);
+    public function MaterialById(int $id);
+    public function insertMaterial(Material $material);
+    public function deleteMaterial(int $id);
+    public function updateMaterial(Material $material);
    
 }

@@ -9,27 +9,27 @@ class UsuarioDao implements IUsuario{
          return  $data_source->getUsers();
     }
 
-    public function UsuarioById($id){
+    public function UsuarioById(int $id){
        //Devuelve el usuario con $ID
        $data_source= new Datasource();
        return $data_source->getUserById($id);
        
     }
 
-    public function insertUsuario($usuario){
+    public function insertUsuario(Usuario $usuario){
         //Inserta un usuario
         $data_source= new Datasource();
         return $data_source->insertUser($usuario);
     }
     
-    public function deleteUsuario($id){
+    public function deleteUsuario(int $id){
         //Borra un usuario con un ID
         $data_source= new Datasource();
         return $data_source->deleteUser($id);
         
     }
 
-    public function updateUsuario($usuario){
+    public function updateUsuario(Usuario $usuario){
         //Actualiza los datos de un usuario
       
         $data_source= new Datasource();

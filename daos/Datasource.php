@@ -22,9 +22,10 @@ class Datasource
     {
 
         if  (empty(self::$database)){
-            self::$database = new stdClass();
+            self::$database = new stdClass();  // La clase stdclass de php, info adicional: http://mjcarrascosa.com/la-clase-stdclass-de-php/
             self::$database->usuarios= array();     //Tabla usuarios
             self::$database->materiales= array();   //Tabla materiales
+            self::$database->prestamos= array();   //Tabla prestamos
             // .... añadir tantas tablas como necesarias
         }
     }
@@ -36,7 +37,7 @@ class Datasource
     }
     
     //Devuelve un usuario dado por ID o falso sino esta
-    public function getUserById($id)
+    public function getUserById(int $id)
     {
         foreach (self::$database->usuarios as $user) {
             if ($user->id == $id) {
@@ -47,14 +48,14 @@ class Datasource
     }
 
     //Inserta en el array y devuelve el numero de elementos del array
-    public function insertUser($usuario)
+    public function insertUser(Usuario $usuario)
     {
         return array_push(self::$database->usuarios, $usuario);
     }
 
    
     //Borrado de un usuario por un ID, devuelve true/false si se ha borrado
-    public function deleteUser($id)
+    public function deleteUser(int $id)
     {
         $borrado=false;
         for ($i=0; $i < count(self::$database->usuarios); $i++) {
@@ -68,7 +69,7 @@ class Datasource
     }
 
     //Actualizado de usuarios, devuelve true si se ha hecho de forma correcta y false sino se ha encontrado
-    public function updateUser($user)
+    public function updateUser(Usuario $user)
     {
         $actualizado=false;
         for ($i=0; $i < count(self::$database->usuarios); $i++) {
@@ -93,7 +94,7 @@ class Datasource
     }
 
         //Devuelve un usuario dado por ID o falso sino esta
-    public function getMaterialById($id)
+    public function getMaterialById(int $id)
     {
         foreach (self::$database->materiales as $mat) {
             if ($mat->id == $id) {
@@ -105,14 +106,14 @@ class Datasource
 
 
     //Inserta en el array y devuelve el numero de elementos del array
-    public function insertMaterial($mat)
+    public function insertMaterial(Material $mat)
     {
         return array_push(self::$database->materiales, $mat);
     }
     
     
     //Borrado de un material por un ID, devuelve true/false si se ha borrado
-    public function deleteMaterial($id)
+    public function deleteMaterial(int $id)
     {
         $borrado=false;
         for ($i=0; $i < count(self::$database->materiales); $i++) {
@@ -126,7 +127,7 @@ class Datasource
     }
 
     //Actualizado de materiales, devuelve true si se ha hecho de forma correcta y false sino se ha encontrado
-    public function updateMaterial($mat)
+    public function updateMaterial(Material $mat)
     {
         $actualizado=false;
         for ($i=0; $i < count(self::$database->materiales); $i++) {
