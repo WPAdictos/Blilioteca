@@ -5,7 +5,7 @@ abstract class Usuario
     protected $nombre;
     protected $id;
     protected $tipo;
-    static $contadorID=0; // Simulamos el generador de ID's autonumerico
+    private static $contadorID=0; // Simulamos el generador de ID's autonumerico
     
 
     function __construct($nombre)
@@ -24,5 +24,6 @@ abstract class Usuario
     function __set($prop,$valor){
         if (property_exists($this,$prop))
            $this->$prop=$valor;
+
     }
 }

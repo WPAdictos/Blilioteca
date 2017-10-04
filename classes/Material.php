@@ -5,7 +5,8 @@ abstract class Material
     protected $anno;
     protected $id;
     protected $tipo;
-    static $contadorID=0; // Simulamos el generador de ID's autonumerico
+    protected $stock;      //Stock añadido SPRINT 4
+    private static $contadorID=0; // Simulamos el generador de ID's autonumerico
     
 
     function __construct($titulo,$anno)
@@ -13,6 +14,7 @@ abstract class Material
         $this->id=++self::$contadorID;  // generamos y guardamos el ID autonumerico
         $this->titulo=$titulo;
         $this->anno=$anno;
+        $this->stock=0;   //Añadido SPRINT 4
     }
 
     function __get($prop)

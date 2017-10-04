@@ -1,29 +1,29 @@
 <?php
 require_once("./autoload.php");
 
-echo "Insertando usuarios .. <br>";
-$estudiante= new Estudiante("Pepe",23,"X23456H");
-$daoUsuario= new UsuarioDao();
-$daoUsuario->insertUsuario($estudiante);
+// Generamos la data fake para hacer las pruebas, creamos 10 usuarios aleatoriamente y 10 materiales
+Factorias::generateUsers(10);
+Factorias::generateMaterials(10);
 
-$daoUsuario->insertUsuario(new Profesor("Bacterio", "Quimica", "X23456"));
-$daoUsuario->insertUsuario(new Profesor("Nachete", "Matematicas", "X23456F"));
+// En este punto ya tenemos generadas dos tablas usuarios y materiales con 10 elementos cada uno
 
-print_r($daoUsuario->AllUsuarios());
-echo("<br> <hr>");
+$usuarioDao= new UsuarioDao();
+$materialDao= new MaterialDao();
 
-echo"Modificando un usuario .... El usuario con Id=3 <br>";
-$usuario=$daoUsuario->UsuarioById(3);
-$usuario->departamento="Secretaria";
-$daoUsuario->updateUsuario($usuario);
-print_r($daoUsuario->AllUsuarios());
-echo("<br> <hr>");
+//Vamos a simular el prestamo del usuario con id 5 y que va a coger un Material con el id 5
+echo("Pintando usuario con Id=5....<br>");
+print_r($usuarioDao->UsuarioById(5));
+echo("<br><br>Pintando material con Id=5....<br>");
+print_r($materialDao->MaterialById(5));
 
+//Generamos el Prestamo y lo pintamos en pantalla
+echo("<br><hr>Pintando prestamo realizado ....<br>");
+$prestamoDao = new PrestamoDao();
+if ($prestamoDao->insertPrestamo($usuarioDao->UsuarioById(5),$materialDao->MaterialById(5)))
+    print_r($prestamoDao->PrestamoById(1)); 
+    else   
+    echo ("No hay stock");
 
-
-echo "Borrando un usuario .. borramos el usuario con Id=2 <br>";
-$daoUsuario->deleteUsuario(2);
-print_r($daoUsuario->AllUsuarios());
-echo("<br> <hr>");
-
-
+//Volvemos a pintar el material con Id 5 para ver como se le ha decrementado el stock
+echo("<br><hr>Pintando como quedo el stock....<br>");
+print_r($materialDao->MaterialById(5));

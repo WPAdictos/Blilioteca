@@ -5,6 +5,8 @@ Clase de la fuente de datos: simularemos el acceso a los datos a un array y los 
 aprovechando las caracteristicas de las variables estaticas, pero los arrays los meteremos como propiedades de un objeto stdclass
 de PHP para de esa manera tener mas ordenado el codigo y mas legible
 
+Diapositiva estructura de la clase: https://docs.google.com/presentation/d/16oqqSbnMsX2P7XG1Ls87vI79st4SfHWfftD6EwsUxMU/edit?usp=sharing
+
 La clase stdclass de php, info adicional: http://mjcarrascosa.com/la-clase-stdclass-de-php/
 */
 
@@ -21,7 +23,7 @@ class Datasource
     function __construct()
     {
 
-        if  (empty(self::$database)){
+        if (empty(self::$database)) {
             self::$database = new stdClass();  // La clase stdclass de php, info adicional: http://mjcarrascosa.com/la-clase-stdclass-de-php/
             self::$database->usuarios= array();     //Tabla usuarios
             self::$database->materiales= array();   //Tabla materiales
@@ -133,6 +135,78 @@ class Datasource
         for ($i=0; $i < count(self::$database->materiales); $i++) {
             if (self::$database->materiales[$i]->id == $mat->id) {
                 self::$database->materiales[$i]=$mat;
+                $actualizado=true;
+                break;
+            }
+        }
+        return $actualizado;
+    }
+    
+
+    //-------------------------------------------------------------------------------------------------------------
+    //Prestamos
+    //-------------------------------------------------------------------------------------------------------------
+
+    
+    //Devuelve todos los prestamos
+    public function getPrestamos()
+    {
+        return self::$database->prestamos;
+    }
+
+    //Devuelve un prestamo dado por ID o falso sino esta
+    public function getLoanById(int $id)
+    {
+        foreach (self::$database->prestamos as $pres) {
+            if ($pres->id == $id) {
+                return $pres;
+            }
+        }
+        return false;
+    }
+
+    //Inserta en el array y devuelve true/false si se hace correcto o no
+    //Pero tiene que hacer una serie de operaciones:
+    //Decrementar el stock del Material
+    public function insertLoan(Usuario $user, Material $material) 
+    {
+        $insertado=false;
+        if($material->stock > 0){
+           $prestamo= new Prestamo();
+           $prestamo->idUsuario=$user->id;            //Guardamos el id de usuario
+           $prestamo->idMaterial=$material->id;       //Guardamos el id de material
+           //Decrementamos en una unidad su stock, si lo hay
+        
+           $daoMaterial= new MaterialDao();
+           $material->stock=--$material->stock;       //Reducimos stock
+           $daoMaterial->updateMaterial($material);   //Grabamos en la BBDD
+           array_push(self::$database->prestamos, $prestamo);   //Grabamos el prestamo
+           $insertado=true;
+        }
+        return $insertado;
+    }
+
+    //Borrado de un prestamo por un ID, devuelve true/false si se ha borrado
+    public function deleteLoan(int $id)
+    {
+        $borrado=false;
+        for ($i=0; $i < count(self::$database->prestamos); $i++) {
+            if (self::$database->prestamos[$i]->id == $id) {
+                array_splice(self::$database->prestamos, $i, 1);
+                $borrado=true;
+                break;
+            }
+        }
+        return $borrado;
+    }
+
+    //Actualizado de prestamos, devuelve true si se ha hecho de forma correcta y false sino se ha encontrado
+    public function updateLoan(Prestamo $pres)
+    {
+        $actualizado=false;
+        for ($i=0; $i < count(self::$database->prestamos); $i++) {
+            if (self::$database->prestamos[$i]->id == $pres->id) {
+                self::$database->prestamos[$i]=$pres;
                 $actualizado=true;
                 break;
             }

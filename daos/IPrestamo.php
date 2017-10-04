@@ -1,11 +1,12 @@
 <?php
+// Interface del Dao de Prestamos
 
 interface IPrestamo{
 
     public function AllPrestamos();
-    public function PrestamoById($id);
-    public function insertPrestamo($prestamo);
-    public function deletePrestamo($id);
-    public function updatePrestamo($prestamo);
+    public function PrestamoById(int $id);
+    public function insertPrestamo(Usuario $usuario, Material $material);
+    public function deletePrestamo(int $id);
+    public function updatePrestamo(Prestamo $prestamo);
    
 }

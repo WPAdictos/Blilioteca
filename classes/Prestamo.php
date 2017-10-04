@@ -1,8 +1,10 @@
 <?php
+// Clase de Prestamos
+
 
 class Prestamo{
 
-    static $contadorID=0; // Simulamos el generador de ID's autonumerico
+    private static $contadorID=0; // Simulamos el generador de ID's autonumerico
     private $id;
     private $idUsuario;
     private $idMaterial;
@@ -12,6 +14,8 @@ class Prestamo{
     function __construct()
     {
         $this->id=++self::$contadorID;  // generamos y guardamos el ID autonumerico
+        $hoy = getdate();               
+        $this->fechaSalida=$hoy["mday"] ."/" . $hoy["mon"]. "/" . $hoy["year"];  // guardamos la fecha del prestamo, salida del material de la Biblio
     }
 
     function __get($prop)
