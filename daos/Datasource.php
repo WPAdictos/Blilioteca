@@ -1,11 +1,16 @@
 <?php
 
+
 /*
 Clase de la fuente de datos: simularemos el acceso a los datos a un array y los alamacenaremos en el Datasource
 aprovechando las caracteristicas de las variables estaticas, pero los arrays los meteremos como propiedades de un objeto stdclass
 de PHP para de esa manera tener mas ordenado el codigo y mas legible
 
+<<<<<<< HEAD
 Diapositiva estructura de la clase: https://docs.google.com/presentation/d/16oqqSbnMsX2P7XG1Ls87vI79st4SfHWfftD6EwsUxMU/edit?usp=sharing
+=======
+Diapositiva para entender la estructura: https://docs.google.com/presentation/d/16oqqSbnMsX2P7XG1Ls87vI79st4SfHWfftD6EwsUxMU/edit?usp=sharing
+>>>>>>> 5dec116977aaef1f1c16a5fd9edf00c4879cad2e
 
 La clase stdclass de php, info adicional: http://mjcarrascosa.com/la-clase-stdclass-de-php/
 */
@@ -27,7 +32,6 @@ class Datasource
             self::$database = new stdClass();  // La clase stdclass de php, info adicional: http://mjcarrascosa.com/la-clase-stdclass-de-php/
             self::$database->usuarios= array();     //Tabla usuarios
             self::$database->materiales= array();   //Tabla materiales
-            self::$database->prestamos= array();   //Tabla prestamos
             // .... añadir tantas tablas como necesarias
         }
     }
