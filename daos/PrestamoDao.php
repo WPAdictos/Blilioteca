@@ -17,7 +17,7 @@ class PrestamoDao implements IPrestamo
         return $data_source->getLoanById($id);
     }
 
-    public function insertPrestamo(Usuario $usuario, Material $material)
+    public function insertPrestamo(Usuario $usuario, array $material)
     {
         //Inserta un prestamo
         //Pero tiene que hacer una serie de operaciones:

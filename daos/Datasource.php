@@ -166,26 +166,31 @@ class Datasource
         return false;
     }
 
-    //Inserta en el array y devuelve true/false si se hace correcto o no
-    //Pero tiene que hacer una serie de operaciones:
+    //Insertamos en numero de materiales que el usuario va a realizar en el prestamo
     //Decrementar el stock del Material
-    public function insertLoan(Usuario $user, Material $material) 
+    public function insertLoan(Usuario $user, array $materiales) 
     {
-        $insertado=false;
-        if($material->stock > 0){
-           $prestamo= new Prestamo();
-           $prestamo->idUsuario=$user->id;            //Guardamos el id de usuario
-           $prestamo->idMaterial=$material->id;       //Guardamos el id de material
-           //Decrementamos en una unidad su stock, si lo hay
-        
-           $daoMaterial= new MaterialDao();
-           $material->stock=--$material->stock;       //Reducimos stock
-           $daoMaterial->updateMaterial($material);   //Grabamos en la BBDD
-           array_push(self::$database->prestamos, $prestamo);   //Grabamos el prestamo
-           $insertado=true;
+ 
+        $prestamo= new Prestamo();
+        $daoMaterial= new MaterialDao();
+        $prestamo->idUsuario=$user->id;  
+        //REcorremos el array de materiales y si tiene stock lo vamos alamacenando en otro array temporal
+        //para luego meterlo via Inyeccion de dependencias
+        $materialesAux=array();
+        foreach ($materiales as $mat) {
+            if($mat->stock > 0){
+                array_push($materialesAux,$mat);
+                $mat->stock=--$mat->stock;       //Reducimos stock
+                $daoMaterial->updateMaterial($mat);   //Actualizamos en la BBDD el nuevo estado de STOCK
+            }
         }
-        return $insertado;
+        $prestamo->setMaterial($materialesAux);            //Mediante ID inyectamos los materiales que se lleva el usuario
+        array_push(self::$database->prestamos, $prestamo);   //Grabamos el prestamo en el array
+        
+         return ;
     }
+
+
 
     //Borrado de un prestamo por un ID, devuelve true/false si se ha borrado
     public function deleteLoan(int $id)
