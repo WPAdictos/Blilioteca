@@ -19,7 +19,7 @@ CREATE TABLE `coches` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
 
 CREATE TABLE `conductores` (
-  `id` int(20) NOT NULL,
+  `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `nombre` varchar(20) NOT NULL,
   `dni` varchar(20) NOT NULL,
   UNIQUE KEY `id` (`id`)
