@@ -12,8 +12,8 @@ Estructura de las tablas
 
 CREATE TABLE `coches` (
   `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `marcamodelo` varchar(80) COLLATE utf8_spanish_ci NOT NULL,
-  `matricula` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
+  `marcamodelo` varchar(80)  NOT NULL,
+  `matricula` varchar(15)  NOT NULL,
   `idConductor` int(11) NOT NULL,
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
@@ -93,7 +93,7 @@ class Coche{
 
 //Conexion a la BBDD
 try {
-    $conexion = new PDO($dsn, $user, $password);                         //creamos el Objeto conexion a la DDBB
+    $conexion = new PDO(DSN, USER, PASSWORD);                         //creamos el Objeto conexion a la DDBB
     $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); //Gestion de Excepciones o errores
     echo "Conectado a la BBDD... <br>";
 
@@ -140,11 +140,27 @@ try {
     echo "<br>Borrando el registro 14 de Conductores= " . $conexion->exec($sql);
     $conexion->commit();
 
+    //------------------------------------------------------------------------------------------------------------------------
+    //Consulta de registros
+
+    $stmt = $conexion->prepare("SELECT * FROM Coches");
+    // Especificamos el fetch mode antes de llamar a fetch()
+    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    // Ejecutamos
+    $stmt->execute();
+    // Mostramos los resultados
+    echo "<hr> Listado de vehiculos <br>";
+    while ($row = $stmt->fetch()){
+        echo "ID: {$row["id"]} <br>";
+        echo "Marca/Modelo: {$row["marcamodelo"]} <br>";
+        echo "Matricula: {$row["matricula"]} <br>";
+    }
+
 
 
 } catch (PDOException $e){
   echo $e->getMessage();
   $conexion->rollback();
+} finally{
+  $conexion=null;  //Se cierra la conexion
 }
-$conexion=null;  //Se cierra la conexion
-
